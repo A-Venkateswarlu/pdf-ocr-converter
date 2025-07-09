@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF OCR to Word/Excel</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="container">
+    <h1>📄 PDF OCR to Word/Excel</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label>Upload PDF files:</label>
+        <input type="file" name="pdf_files" multiple required><br><br>
+
+        <label>Select output format:</label><br>
+        <input type="radio" name="output_format" value="word" required> Word<br>
+        <input type="radio" name="output_format" value="excel"> Excel<br>
+        <input type="radio" name="output_format" value="both"> Both<br><br>
+
+        <button type="submit">Convert</button>
+    </form>
+
+    {% if download_links %}
+        <h2>🔗 Download Files:</h2>
+        <ul>
+        {% for label, path in download_links %}
+            <li><a href="{{ url_for('download_file', filepath=path) }}">{{ label }} - {{ path.split('/')[-1] }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+</body>
+</html>
